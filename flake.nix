@@ -73,8 +73,8 @@
       let
         org = "acmsl";
         repo = "licdata-iac";
-        version = "0.0.2";
-        sha256 = "sha256-jSriaDLdaE34kz1EFLrTs2DomzsgDMLtj5yaY0jt5b8=";
+        version = "0.0.4";
+        sha256 = "04v15n87jhl9fvwphxni1jn7slkw5fpmv0pbk070c6drrc53g8yx";
         pname = "${org}-${repo}";
         pythonpackage = "org.acmsl.licdata.iac";
         package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
@@ -214,7 +214,7 @@
               cp dist/${wheelName} $out/dist
               cp /build/$sourceRoot/entrypoint.sh $out/bin/${entrypoint}.sh
               chmod +x $out/bin/${entrypoint}.sh
-              cp -r ${licdata}/dist/rest.zip /build/$sourceRoot/templates $out/lib/python${pythonMajorMinorVersion}/site-packages
+              cp -r ${licdata}/dist/rest.zip /build/$sourceRoot/templates ${licdata}/dist/Dockerfile $out/dist/
               echo '#!/usr/bin/env sh' > $out/bin/banner.sh
               echo "export PYTHONPATH=$PYTHONPATH" >> $out/bin/banner.sh
               echo "echo 'Running $out/bin/banner'" >> $out/bin/banner.sh
@@ -222,6 +222,8 @@
               echo "${python}/bin/python ${banner_file} \$@" >> $out/bin/banner.sh
               echo "popd" >> $out/bin/banner.sh
               chmod +x $out/bin/banner.sh
+
+              docker build -t ${org}-${repo}:${version} .
             '';
 
             meta = with pkgs.lib; {
