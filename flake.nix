@@ -17,14 +17,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {
-  description = "Licdata IaC";
+  description = "Nix flake for acmsl/licdata-iac";
   inputs = rec {
     nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     licdata = {
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
-      url = "github:acmsl-def/licdata-def/0.0.2?dir=rest";
+      url = "github:acmsl-def/licdata-def/0.0.7?dir=rest";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
@@ -37,14 +37,14 @@
     pythoneda-shared-pythonlang-banner = {
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.56";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.62";
     };
     pythoneda-shared-pythonlang-domain = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
-      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.53";
+      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.75";
     };
     pythoneda-shared-pythonlang-infrastructure = {
       inputs.flake-utils.follows = "flake-utils";
@@ -53,7 +53,7 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-shared-pythonlang-def/infrastructure/0.0.40";
+      url = "github:pythoneda-shared-pythonlang-def/infrastructure/0.0.54";
     };
     pythoneda-shared-pythonlang-application = {
       inputs.flake-utils.follows = "flake-utils";
@@ -64,7 +64,7 @@
         "pythoneda-shared-pythonlang-domain";
       inputs.pythoneda-shared-pythonlang-infrastructure.follows =
         "pythoneda-shared-pythonlang-infrastructure";
-      url = "github:pythoneda-shared-pythonlang-def/application/0.0.67";
+      url = "github:pythoneda-shared-pythonlang-def/application/0.0.75";
     };
   };
   outputs = inputs:
@@ -234,7 +234,7 @@
         apps = rec {
           default = licdata-iac-default;
           licdata-iac-default =
-            licdata-iac-python311;
+            licdata-iac-python312;
           licdata-iac-python38 = shared.app-for {
             package =
               self.packages.${system}.licdata-iac-python38;
@@ -255,12 +255,17 @@
               self.packages.${system}.licdata-iac-python311;
             inherit entrypoint;
           };
+          licdata-iac-python312 = shared.app-for {
+            package =
+              self.packages.${system}.licdata-iac-python312;
+            inherit entrypoint;
+          };
         };
         defaultApp = apps.default;
         defaultPackage = packages.default;
         devShells = rec {
           default = licdata-iac-default;
-          licdata-iac-default = licdata-iac-python311;
+          licdata-iac-default = licdata-iac-python312;
           licdata-iac-python38 =
             shared.devShell-for {
               banner = "${packages.licdata-iac-python38}/bin/banner.sh";
@@ -313,11 +318,24 @@
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python311;
               inherit archRole layer org pkgs repo space;
             };
+          licdata-iac-python312 =
+            shared.devShell-for {
+              banner = "${packages.licdata-iac-python311}/bin/banner.sh";
+              extra-namespaces = "org";
+              nixpkgs-release = nixpkgsRelease;
+              package = packages.licdata-iac-python312;
+              python = pkgs.python312;
+              pythoneda-shared-pythonlang-banner =
+                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
+              pythoneda-shared-pythonlang-domain =
+                pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python312;
+              inherit archRole layer org pkgs repo space;
+            };
         };
         packages = rec {
           default = licdata-default;
           licdata-default =
-            licdata-iac-python311;
+            licdata-iac-python312;
           licdata-iac-python38 =
             pythoneda-licdata-iac-for {
               python = pkgs.python38;
@@ -369,6 +387,19 @@
                 pythoneda-shared-pythonlang-infrastructure.packages.${system}.pythoneda-shared-pythonlang-infrastructure-python311;
               pythoneda-shared-pythonlang-application =
                 pythoneda-shared-pythonlang-application.packages.${system}.pythoneda-shared-pythonlang-application-python311;
+            };
+          licdata-iac-python312 =
+            licdata-iac-for {
+              python = pkgs.python312;
+              licdata = licdata.packages.${system}.licdata-python312;
+              pythoneda-shared-pythonlang-banner =
+                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
+              pythoneda-shared-pythonlang-domain =
+                pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python312;
+              pythoneda-shared-pythonlang-infrastructure =
+                pythoneda-shared-pythonlang-infrastructure.packages.${system}.pythoneda-shared-pythonlang-infrastructure-python312;
+              pythoneda-shared-pythonlang-application =
+                pythoneda-shared-pythonlang-application.packages.${system}.pythoneda-shared-pythonlang-application-python312;
             };
         };
       });
