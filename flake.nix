@@ -24,7 +24,7 @@
     licdata = {
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
-      url = "github:acmsl-def/licdata-def/0.0.7?dir=rest";
+      url = "github:acmsl-def/licdata-def/0.0.9?dir=rest";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
@@ -37,14 +37,14 @@
     pythoneda-shared-pythonlang-banner = {
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.62";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.63";
     };
     pythoneda-shared-pythonlang-domain = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
-      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.75";
+      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.77";
     };
     pythoneda-shared-pythonlang-infrastructure = {
       inputs.flake-utils.follows = "flake-utils";
@@ -53,7 +53,7 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-shared-pythonlang-def/infrastructure/0.0.54";
+      url = "github:pythoneda-shared-pythonlang-def/infrastructure/0.0.56";
     };
     pythoneda-shared-pythonlang-application = {
       inputs.flake-utils.follows = "flake-utils";
@@ -64,7 +64,7 @@
         "pythoneda-shared-pythonlang-domain";
       inputs.pythoneda-shared-pythonlang-infrastructure.follows =
         "pythoneda-shared-pythonlang-infrastructure";
-      url = "github:pythoneda-shared-pythonlang-def/application/0.0.75";
+      url = "github:pythoneda-shared-pythonlang-def/application/0.0.78";
     };
   };
   outputs = inputs:
@@ -110,8 +110,8 @@
           in python.pkgs.buildPythonPackage rec {
             inherit pname version;
             projectDir = ./.;
-            pyprojectTemplateFile = ./pyprojecttoml.template;
-            pyprojectTemplate = pkgs.substituteAll {
+            pyprojectTomlTemplate = ./templates/pyproject.toml.template;
+            pyprojectToml = pkgs.substituteAll {
               authors = builtins.concatStringsSep ","
                 (map (item: ''"${item}"'') maintainers);
               desc = description;
@@ -127,11 +127,11 @@
               pythonedaSharedPythonlangApplication =
                 pythoneda-shared-pythonlang-application.version;
               pulumi = python.pkgs.pulumi.version;
-              pulumiAzureNative = python.pkgs.pulumi-azure-native.version;
-              src = pyprojectTemplateFile;
+              pulumiAzureNative = pkgs.python312Packages.pulumi-azure-native.version;
+              src = pyprojectTomlTemplate;
             };
-            bannerTemplateFile = ./templates/banner.py.template;
-            bannerTemplate = pkgs.substituteAll {
+            bannerPyTemplate = ./templates/banner.py.template;
+            bannerPy = pkgs.substituteAll {
               project_name = pname;
               file_path = banner_file;
               inherit banner_class org repo;
@@ -141,12 +141,12 @@
               hexagonal_layer = layer;
               python_version = pythonMajorMinorVersion;
               nixpkgs_release = nixpkgsRelease;
-              src = bannerTemplateFile;
+              src = bannerPyTemplate;
             };
 
-            entrypointTemplateFile =
+            entrypointShTemplate =
               "${pythoneda-shared-pythonlang-banner}/templates/entrypoint.sh.template";
-            entrypointTemplate = pkgs.substituteAll {
+            entrypointSh = pkgs.substituteAll {
               arch_role = archRole;
               hexagonal_layer = layer;
               nixpkgs_release = nixpkgsRelease;
@@ -157,7 +157,7 @@
                 pythoneda-shared-pythonlang-banner;
               pythoneda_shared_pythoneda_domain =
                 pythoneda-shared-pythonlang-domain;
-              src = entrypointTemplateFile;
+              src = entrypointShTemplate;
             };
             src = pkgs.fetchFromGitHub {
               owner = org;
@@ -167,7 +167,7 @@
 
             format = "pyproject";
 
-            nativeBuildInputs = with python.pkgs; [ pip poetry-core ];
+            nativeBuildInputs = [ python.pkgs.pip python.pkgs.poetry-core pkgs.docker ];
             propagatedBuildInputs = with python.pkgs; [
               pythoneda-shared-pythonlang-banner
               pythoneda-shared-pythonlang-domain
@@ -184,9 +184,9 @@
               sourceRoot=$(ls | grep -v env-vars)
               chmod +w $sourceRoot
               find $sourceRoot -type d -exec chmod 777 {} \;
-              cp ${pyprojectTemplate} $sourceRoot/pyproject.toml
-              cp ${bannerTemplate} $sourceRoot/${banner_file}
-              cp ${entrypointTemplate} $sourceRoot/entrypoint.sh
+              cp ${pyprojectToml} $sourceRoot/pyproject.toml
+              cp ${bannerPy} $sourceRoot/${banner_file}
+              cp ${entrypointSh} $sourceRoot/entrypoint.sh
             '';
 
             postPatch = ''
@@ -214,7 +214,7 @@
               cp dist/${wheelName} $out/dist
               cp /build/$sourceRoot/entrypoint.sh $out/bin/${entrypoint}.sh
               chmod +x $out/bin/${entrypoint}.sh
-              cp -r ${licdata}/dist/rest.zip /build/$sourceRoot/templates ${licdata}/dist/Dockerfile $out/dist/
+              cp -r ${licdata}/dist/rest.zip ${licdata}/dist/Dockerfile $out/dist/
               echo '#!/usr/bin/env sh' > $out/bin/banner.sh
               echo "export PYTHONPATH=$PYTHONPATH" >> $out/bin/banner.sh
               echo "echo 'Running $out/bin/banner'" >> $out/bin/banner.sh
@@ -223,7 +223,7 @@
               echo "popd" >> $out/bin/banner.sh
               chmod +x $out/bin/banner.sh
 
-              docker build -t ${org}-${repo}:${version} .
+              # docker build -t ${org}-${repo}:${version} .
             '';
 
             meta = with pkgs.lib; {
@@ -232,9 +232,7 @@
           };
       in rec {
         apps = rec {
-          default = licdata-iac-default;
-          licdata-iac-default =
-            licdata-iac-python312;
+          default = licdata-iac-python311;
           licdata-iac-python38 = shared.app-for {
             package =
               self.packages.${system}.licdata-iac-python38;
@@ -264,8 +262,7 @@
         defaultApp = apps.default;
         defaultPackage = packages.default;
         devShells = rec {
-          default = licdata-iac-default;
-          licdata-iac-default = licdata-iac-python312;
+          default = licdata-iac-python311;
           licdata-iac-python38 =
             shared.devShell-for {
               banner = "${packages.licdata-iac-python38}/bin/banner.sh";
@@ -320,7 +317,7 @@
             };
           licdata-iac-python312 =
             shared.devShell-for {
-              banner = "${packages.licdata-iac-python311}/bin/banner.sh";
+              banner = "${packages.licdata-iac-python312}/bin/banner.sh";
               extra-namespaces = "org";
               nixpkgs-release = nixpkgsRelease;
               package = packages.licdata-iac-python312;
@@ -333,9 +330,7 @@
             };
         };
         packages = rec {
-          default = licdata-default;
-          licdata-default =
-            licdata-iac-python312;
+          default = licdata-iac-python311;
           licdata-iac-python38 =
             pythoneda-licdata-iac-for {
               python = pkgs.python38;
