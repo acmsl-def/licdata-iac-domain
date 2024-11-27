@@ -1,3 +1,6 @@
 **/__pycache__
 venv/*
 result
+deps.txt
+deps.png
+src

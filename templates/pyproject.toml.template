@@ -1,4 +1,4 @@
-# iac/pyprojecttoml.template
+# licdata-iac/templates/pyprojecttoml.template
 #
 # This file is the template for acmsl's licdata-iac
 #
@@ -32,7 +32,7 @@ pythoneda-shared-pythonlang-domain = "^@pythonedaSharedPythonlangDomain@"
 pythoneda-shared-pythonlang-infrastructure = "^@pythonedaSharedPythonlangInfrastructure@"
 pythoneda-shared-pythonlang-application = "^@pythonedaSharedPythonlangApplication@"
 pulumi = "^@pulumi@"
-pulumi-azure-native = "^@pulumiAzureNative@"
+# pulumi-azure-native = "^@pulumiAzureNative@"
 
 [build-system]
 requires = ["poetry-core"]
