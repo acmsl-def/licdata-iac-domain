@@ -43,7 +43,7 @@
     acmsl-licdata = {
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
-      url = "github:acmsl-def/licdata-def/0.0.9?dir=rest";
+      url = "github:acmsl-def/licdata-def/0.0.10?dir=rest";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
@@ -121,8 +121,8 @@
       let
         org = "acmsl";
         repo = "licdata-iac";
-        version = "0.0.7";
-        sha256 = "0c3iin8g0vpkv3bbvzbib1pn4r8d080wnv3phgkzlx5jay2mvn9z";
+        version = "0.0.8";
+        sha256 = "014i8dmg2wfld81rki5jaw2zxysfwx4if2v9rxwfh8r06rqz71z1";
         pname = "${org}-${repo}";
         pythonpackage = "org.acmsl.iac.licdata";
         package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
