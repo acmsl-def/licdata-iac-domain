@@ -1,8 +1,8 @@
-# licdata-iac/templates/pyprojecttoml.template
+# licdata-iac-domain/templates/pyprojecttoml.template
 #
-# This file is the template for acmsl's licdata-iac
+# This file is the template for acmsl's licdata-iac-domain
 #
-# Copyright (C) 2024-today acmsl's licdata-iac
+# Copyright (C) 2024-today acmsl's licdata-iac-domain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,6 +27,9 @@ packages = [{include = "@package@"}]
 
 [tool.poetry.dependencies]
 python = "^@pythonMajorMinorVersion@"
+pythoneda-shared-iac-events = "^@pythonedaSharedIacEvents@"
+pythoneda-shared-iac-pulumi-azure = "^@pythonedaSharedIacPulumiAzure@"
+pythoneda-shared-iac-shared = "^@pythonedaSharedIacShared@"
 pythoneda-shared-pythonlang-banner = "^@pythonedaSharedPythonlangBanner@"
 pythoneda-shared-pythonlang-domain = "^@pythonedaSharedPythonlangDomain@"
 pythoneda-shared-pythonlang-infrastructure = "^@pythonedaSharedPythonlangInfrastructure@"
