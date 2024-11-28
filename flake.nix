@@ -112,7 +112,7 @@
         "pythoneda-shared-pythonlang-domain";
       inputs.pythoneda-shared-pythonlang-infrastructure.follows =
         "pythoneda-shared-pythonlang-infrastructure";
-      url = "github:pythoneda-shared-pythonlang-def/application/0.0.84";
+      url = "github:pythoneda-shared-pythonlang-def/application/0.0.85";
     };
   };
   outputs = inputs:
