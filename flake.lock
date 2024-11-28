@@ -49,16 +49,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1732739143,
-        "narHash": "sha256-JE8eM4ejR6UIGMeC/K2GUXx5IOWHz4RHX0B0+RMRJxs=",
+        "lastModified": 1732795212,
+        "narHash": "sha256-W7zZ1XaLZcSFWm2Z5mgxZ4bCOkFsNpZEv+BexTTX4BE=",
         "owner": "acmsl-def",
         "repo": "licdata-artifact-events",
-        "rev": "22c19094907c92e70016c6125d50d5972b660c8e",
+        "rev": "939ec0b0f61adf5166a850dbee4df8c1eb686981",
         "type": "github"
       },
       "original": {
         "owner": "acmsl-def",
-        "ref": "0.0.7",
+        "ref": "0.0.8",
         "repo": "licdata-artifact-events",
         "type": "github"
       }
