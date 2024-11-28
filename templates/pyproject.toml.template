@@ -32,8 +32,6 @@ pythoneda-shared-iac-pulumi-azure = "^@pythonedaSharedIacPulumiAzure@"
 pythoneda-shared-iac-shared = "^@pythonedaSharedIacShared@"
 pythoneda-shared-pythonlang-banner = "^@pythonedaSharedPythonlangBanner@"
 pythoneda-shared-pythonlang-domain = "^@pythonedaSharedPythonlangDomain@"
-pythoneda-shared-pythonlang-infrastructure = "^@pythonedaSharedPythonlangInfrastructure@"
-pythoneda-shared-pythonlang-application = "^@pythonedaSharedPythonlangApplication@"
 pulumi = "^@pulumi@"
 # pulumi-azure-native = "^@pulumiAzureNative@"
 

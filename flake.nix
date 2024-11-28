@@ -28,16 +28,6 @@
         "pythoneda-shared-pythonlang-domain";
       url = "github:acmsl-def/licdata-artifact-events/0.0.7";
     };
-    acmsl-licdata-artifact-events-infrastructure = {
-      inputs.nixos.follows = "nixos";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.acmsl-licdata-artifact-events.follows = "acmsl-licdata-artifact-events";
-      inputs.pythoneda-shared-pythonlang-banner.follows =
-        "pythoneda-shared-pythonlang-banner";
-      inputs.pythoneda-shared-pythonlang-domain.follows =
-        "pythoneda-shared-pythonlang-domain";
-      url = "github:acmsl-def/licdata-artifact-events-infrastructure/0.0.7";
-    };
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     nixos.url = "github:NixOS/nixpkgs/24.05";
     acmsl-licdata = {
@@ -90,26 +80,6 @@
         "pythoneda-shared-pythonlang-banner";
       url = "github:pythoneda-shared-pythonlang-def/domain/0.0.89";
     };
-    pythoneda-shared-pythonlang-infrastructure = {
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
-      inputs.pythoneda-shared-pythonlang-banner.follows =
-        "pythoneda-shared-pythonlang-banner";
-      inputs.pythoneda-shared-pythonlang-domain.follows =
-        "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-shared-pythonlang-def/infrastructure/0.0.65";
-    };
-    pythoneda-shared-pythonlang-application = {
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
-      inputs.pythoneda-shared-pythonlang-banner.follows =
-        "pythoneda-shared-pythonlang-banner";
-      inputs.pythoneda-shared-pythonlang-domain.follows =
-        "pythoneda-shared-pythonlang-domain";
-      inputs.pythoneda-shared-pythonlang-infrastructure.follows =
-        "pythoneda-shared-pythonlang-infrastructure";
-      url = "github:pythoneda-shared-pythonlang-def/application/0.0.86";
-    };
   };
   outputs = inputs:
     with inputs;
@@ -136,9 +106,7 @@
         shared = import "${pythoneda-shared-pythonlang-banner}/nix/shared.nix";
         acmsl-licdata-iac-domain-for = {
           acmsl-licdata, python, pythoneda-shared-iac-events, pythoneda-shared-iac-pulumi-azure, pythoneda-shared-iac-shared, pythoneda-shared-pythonlang-banner
-          , pythoneda-shared-pythonlang-domain
-          , pythoneda-shared-pythonlang-infrastructure
-          , pythoneda-shared-pythonlang-application }:
+          , pythoneda-shared-pythonlang-domain }:
           let
             pnameWithUnderscores =
               builtins.replaceStrings [ "-" ] [ "_" ] pname;
@@ -168,10 +136,6 @@
                 pythoneda-shared-pythonlang-banner.version;
               pythonedaSharedPythonlangDomain =
                 pythoneda-shared-pythonlang-domain.version;
-              pythonedaSharedPythonlangInfrastructure =
-                pythoneda-shared-pythonlang-infrastructure.version;
-              pythonedaSharedPythonlangApplication =
-                pythoneda-shared-pythonlang-application.version;
               pulumi = python.pkgs.pulumi.version;
               pulumiAzureNative = pkgs.python312Packages.pulumi-azure-native.version;
               src = pyprojectTomlTemplate;
@@ -192,8 +156,6 @@
               pythoneda-shared-iac-shared
               pythoneda-shared-pythonlang-banner
               pythoneda-shared-pythonlang-domain
-              pythoneda-shared-pythonlang-infrastructure
-              pythoneda-shared-pythonlang-application
               pulumi
               pulumi-azure-native
             ];
@@ -309,10 +271,6 @@
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python38;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python38;
-              pythoneda-shared-pythonlang-infrastructure =
-                pythoneda-shared-pythonlang-infrastructure.packages.${system}.pythoneda-shared-pythonlang-infrastructure-python38;
-              pythoneda-shared-pythonlang-application =
-                pythoneda-shared-pythonlang-application.packages.${system}.pythoneda-shared-pythonlang-application-python38;
             };
           acmsl-licdata-iac-domain-python39 =
             acmsl-licdata-iac-domain-for {
@@ -328,10 +286,6 @@
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python39;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python39;
-              pythoneda-shared-pythonlang-infrastructure =
-                pythoneda-shared-pythonlang-infrastructure.packages.${system}.pythoneda-shared-pythonlang-infrastructure-python39;
-              pythoneda-shared-pythonlang-application =
-                pythoneda-shared-pythonlang-application.packages.${system}.pythoneda-shared-pythonlang-application-python39;
             };
           acmsl-licdata-iac-domain-python310 =
             acmsl-licdata-iac-domain-for {
@@ -347,10 +301,6 @@
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python310;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python310;
-              pythoneda-shared-pythonlang-infrastructure =
-                pythoneda-shared-pythonlang-infrastructure.packages.${system}.pythoneda-shared-pythonlang-infrastructure-python310;
-              pythoneda-shared-pythonlang-application =
-                pythoneda-shared-pythonlang-application.packages.${system}.pythoneda-shared-pythonlang-application-python310;
             };
           acmsl-licdata-iac-domain-python311 =
             acmsl-licdata-iac-domain-for {
@@ -366,10 +316,6 @@
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python311;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python311;
-              pythoneda-shared-pythonlang-infrastructure =
-                pythoneda-shared-pythonlang-infrastructure.packages.${system}.pythoneda-shared-pythonlang-infrastructure-python311;
-              pythoneda-shared-pythonlang-application =
-                pythoneda-shared-pythonlang-application.packages.${system}.pythoneda-shared-pythonlang-application-python311;
             };
           acmsl-licdata-iac-domain-python312 =
             acmsl-licdata-iac-domain-for {
@@ -385,10 +331,6 @@
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python312;
-              pythoneda-shared-pythonlang-infrastructure =
-                pythoneda-shared-pythonlang-infrastructure.packages.${system}.pythoneda-shared-pythonlang-infrastructure-python312;
-              pythoneda-shared-pythonlang-application =
-                pythoneda-shared-pythonlang-application.packages.${system}.pythoneda-shared-pythonlang-application-python312;
             };
         };
       });
