@@ -16,16 +16,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1733319252,
-        "narHash": "sha256-TtBlgvxBHmS5xIBHkVSABnF3T4+DtUZHUw/Rk68c37A=",
+        "lastModified": 1733410264,
+        "narHash": "sha256-0wOpTPUOtL/XrHsVHKnwjzz7/KEcqQ6JCgcPtzOfz70=",
         "owner": "acmsl-def",
         "repo": "licdata-artifact-events",
-        "rev": "bbd19ee613fe999ccc5fabdb83f5cd56f97930cc",
+        "rev": "5c5d4b667219d41823475f57bfd344108a9e7c72",
         "type": "github"
       },
       "original": {
         "owner": "acmsl-def",
-        "ref": "0.0.11",
+        "ref": "0.0.12",
         "repo": "licdata-artifact-events",
         "type": "github"
       }
@@ -148,16 +148,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1733318256,
-        "narHash": "sha256-4VL78/rAUhgm9GCYx6hzhdoItvhmQ4BWz0B25D66Nvc=",
+        "lastModified": 1733404321,
+        "narHash": "sha256-PeCp+Z1vtd7jyNFnvQFE9JKvffd/SIZFrnsQksp/Aj8=",
         "owner": "pythoneda-shared-iac-def",
         "repo": "pulumi-azure",
-        "rev": "efb5374e4db7cfe8fab498d5144693475d5f064a",
+        "rev": "000454a5d5eddc4b958f3192c59a9c2e9dc233fe",
         "type": "github"
       },
       "original": {
         "owner": "pythoneda-shared-iac-def",
-        "ref": "0.0.11",
+        "ref": "0.0.12",
         "repo": "pulumi-azure",
         "type": "github"
       }
@@ -230,16 +230,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1733307718,
-        "narHash": "sha256-eKfKc7xa32GIGOz200rDvQFZVdAucBNhAux6eM44nfc=",
+        "lastModified": 1733397996,
+        "narHash": "sha256-faRl1cx7+kqW2SwrUIAJOe8wqPfvaHTivHE1qY+BCWY=",
         "owner": "pythoneda-shared-pythonlang-def",
         "repo": "domain",
-        "rev": "b12c3b21826b70711f53ce3ce496d936223c555d",
+        "rev": "b51a9726e9ae5a848fcceb84949672884460bb02",
         "type": "github"
       },
       "original": {
         "owner": "pythoneda-shared-pythonlang-def",
-        "ref": "0.0.92",
+        "ref": "0.0.93",
         "repo": "domain",
         "type": "github"
       }
