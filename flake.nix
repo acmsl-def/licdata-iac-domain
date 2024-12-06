@@ -37,7 +37,7 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-shared-iac-def/events/0.0.7";
+      url = "github:pythoneda-shared-iac-def/events/0.0.10";
     };
     pythoneda-shared-iac-pulumi-azure = {
       inputs.flake-utils.follows = "flake-utils";
@@ -78,8 +78,8 @@
       let
         org = "acmsl";
         repo = "licdata-iac-domain";
-        version = "0.0.17";
-        sha256 = "06k2gcj0xkxv97bg6abbyngjs8zb9z5hwkd3y2n4llwsh8m7w72j";
+        version = "0.0.18";
+        sha256 = "1vfffn718y1qvl7kpxr0ff0745j696511p5b60lkpc6qc78r1hz9";
         pname = "${org}-${repo}";
         pythonpackage = "org.acmsl.iac.licdata";
         package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
