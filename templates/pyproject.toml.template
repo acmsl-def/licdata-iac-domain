@@ -1,4 +1,4 @@
-# licdata-iac-domain/templates/pyprojecttoml.template
+# templates/pyprojecttoml.template
 #
 # This file is the template for acmsl's licdata-iac-domain
 #
@@ -33,6 +33,7 @@ pythoneda-shared-iac-pulumi-azure = "^@pythonedaSharedIacPulumiAzure@"
 pythoneda-shared-iac-shared = "^@pythonedaSharedIacShared@"
 pythoneda-shared-pythonlang-banner = "^@pythonedaSharedPythonlangBanner@"
 pythoneda-shared-pythonlang-domain = "^@pythonedaSharedPythonlangDomain@"
+pythoneda-shared-runtime-secrets-events = "^@pythonedaSharedRuntimeSecretsEvents@"
 pulumi = "^@pulumi@"
 # pulumi-azure-native = "^@pulumiAzureNative@"
 
